@@ -1,7 +1,7 @@
 import pygame
 from random import randint
 
-
+# SETUP DE LA FENETRE DE JEU
 def main():
     pygame.init()
     screen = pygame.display.set_mode((480, 480))
@@ -11,6 +11,7 @@ def main():
     pygame.display.set_caption("Snakezer")
     play = False
     while running:
+        #MENU 
         if play == False:
             serpent.perdu()
             screen.blit(ecrantitre, (0, 0))
@@ -19,13 +20,14 @@ def main():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         play = True
-
+        #AFFICHE LE SERPEN à L'ECRAN
         if play == True:
             screen.blit(bg, (0, 0))
             screen.blit(food.image, (food.rect.x, food.rect.y))
             screen.blit(serpent.image, serpent.rect)
             screen.blit(serpent2.image,serpent2.rect)
-
+            
+            #FAIT REAPPARAITRE LE COOKIE LORSQUE LE SERPENT LE MANGE
             if serpent.getcoordsX() == food.rect.x and serpent.getcoordsY() == food.rect.y:
                 food.rect.x = food.newcoordsX()
                 food.rect.y = food.newcoordsY()
@@ -34,7 +36,8 @@ def main():
             coordsanslatete = serpent.listcoord[:-1]
             if coordnow in coordsanslatete:
                 play = False
-
+                
+            #LONGUEUR DU SERPENT
             goodcoords = (serpent.rect.x, serpent.rect.y)
             if goodcoords not in serpent.listcoord:
                 serpent.listcoord.append((serpent.rect.x, serpent.rect.y))
@@ -42,15 +45,20 @@ def main():
                 del serpent.listcoord[0]
             if serpent.listcoord[-1][0] in serpent.badcoordx or serpent.listcoord[-1][1] in serpent.badcoordy:
                 play = False
-
+            
+            #FAIT GRANDIR LE SERPENT
             for i in serpent.listcoord:
                 screen.blit(serpent.image, (i[0], i[1]))
             pygame.display.flip()
+            
+            #QUITTER LE JEU
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()
                     print("Fermeture du jeu")
+                    
+                #MOVEMENT DU SERPENT
                 elif event.type == pygame.KEYDOWN:
 
                     if event.key == pygame.K_UP:
@@ -80,6 +88,7 @@ def main():
                     if event.key == pygame.K_r:
                         play = False
 
+#CLASS QUI GENERE LE SERPENT
 class snake(pygame.sprite.Sprite):  # définit le classe snake
     def __init__(self):
         super().__init__()
@@ -126,6 +135,7 @@ serpent2 = snake()
 serpent2.rect.x = 224
 serpent2.rect.y = 224
 
+#CLASSE DU COOKIE
 class graille(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
