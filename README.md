@@ -1,3 +1,3 @@
-# Snake
+# Bunch of python scripts
 
-Tiny game made with python, first tiny project from my beginnings
+Tiny projects from my beginnings
