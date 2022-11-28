@@ -1,3 +1,3 @@
-# Bunch of python scripts
+# Python scripts
 
 Tiny projects from my beginnings
